@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getRedis, RSVP_LIST_KEY, type RsvpRecord } from "@/lib/redis";
 
 export const runtime = "nodejs";
 
@@ -21,7 +22,8 @@ export async function POST(request: Request) {
   const name = (data.name ?? "").toString().trim();
   const phone = (data.phone ?? "").toString().trim();
   const email = (data.email ?? "").toString().trim();
-  const guests = (data.guests ?? "1").toString().trim();
+  const guestsRaw = (data.guests ?? "1").toString().trim();
+  const guests = Math.max(1, parseInt(guestsRaw, 10) || 1);
   const message = (data.message ?? "").toString().trim();
 
   if (!name || !phone) {
@@ -31,12 +33,39 @@ export async function POST(request: Request) {
     );
   }
 
+  const record: RsvpRecord = {
+    id: crypto.randomUUID(),
+    name,
+    phone,
+    email,
+    guests,
+    message,
+    createdAt: new Date().toISOString(),
+  };
+
+  // ---------------------------------------------------------------------
+  // Persist to Upstash Redis so it shows up on /admin.
+  // Requires UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN to be set
+  // (already connected via the Upstash integration on Vercel).
+  // ---------------------------------------------------------------------
+  try {
+    const redis = getRedis();
+    // LPUSH keeps newest submissions at the head of the list.
+    await redis.lpush(RSVP_LIST_KEY, JSON.stringify(record));
+  } catch (err) {
+    console.error("Failed to save RSVP to Redis:", err);
+    return NextResponse.json(
+      { error: "We couldn't save your RSVP right now. Please try again shortly." },
+      { status: 500 }
+    );
+  }
+
   // ---------------------------------------------------------------------
   // Email notifications (optional)
   // Set RESEND_API_KEY, RSVP_TO_EMAIL, and RSVP_FROM_EMAIL in your Vercel
   // project's environment variables to get an email every time someone
   // submits an RSVP. (https://resend.com has a free tier that's plenty.)
-  // If these aren't set, submissions are just logged to the console.
+  // If these aren't set, submissions are just saved to Redis / logged.
   // ---------------------------------------------------------------------
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
   const RSVP_TO_EMAIL = process.env.RSVP_TO_EMAIL;
@@ -60,7 +89,7 @@ export async function POST(request: Request) {
             <p><b>Name:</b> ${escapeHtml(name)}</p>
             <p><b>Phone:</b> ${escapeHtml(phone)}</p>
             <p><b>Email:</b> ${escapeHtml(email || "-")}</p>
-            <p><b>Guests:</b> ${escapeHtml(guests)}</p>
+            <p><b>Guests:</b> ${escapeHtml(String(guests))}</p>
             <p><b>Message:</b><br/>${escapeHtml(message || "-")}</p>
           `,
         }),
@@ -73,13 +102,7 @@ export async function POST(request: Request) {
       console.error("Resend email error", err);
     }
   } else {
-    console.log("[RSVP] New submission (email not configured):", {
-      name,
-      phone,
-      email,
-      guests,
-      message,
-    });
+    console.log("[RSVP] New submission saved:", record);
   }
 
   return NextResponse.json({ ok: true });
