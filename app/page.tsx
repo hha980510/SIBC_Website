@@ -14,11 +14,11 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <BibleSeminar />
         <About />
         <WelcomeVerse />
         <ServiceTimes />
         <Ministries />
-        <BibleSeminar />
         <LocationSection />
       </main>
       <Footer />
