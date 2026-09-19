@@ -19,7 +19,7 @@ export const siteConfig = {
 
   contact: {
     phone: "(312) 593-6637",
-    email: "jbsibc@gmail.com",
+    email: "sibc.jbch@gmail.com",
   },
 
   services: [
