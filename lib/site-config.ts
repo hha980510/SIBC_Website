@@ -41,6 +41,12 @@ export const siteConfig = {
       day: "Every Friday",
       desc: "Gathering together for earnest, united prayer.",
     },
+    {
+      name: "Young Adult Fellowship",
+      time: "6:50 PM",
+      day: "Every Saturday",
+      desc: "Young adults gathering together in the Word and fellowship.",
+    },
   ],
 
   ministries: [
