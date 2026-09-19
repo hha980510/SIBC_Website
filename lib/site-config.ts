@@ -17,10 +17,9 @@ export const siteConfig = {
     mapsQuery: "4+Phillips+Dr+Fairview+Heights+IL+62208",
   },
 
-  // TODO: replace with your real contact details.
   contact: {
-    phone: "(618) 555-0123",
-    email: "info@jbch.sibc.org",
+    phone: "(312) 593-6637",
+    email: "jbsibc@gmail.com",
   },
 
   services: [
