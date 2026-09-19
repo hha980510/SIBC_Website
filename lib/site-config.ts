@@ -46,28 +46,20 @@ export const siteConfig = {
 
   ministries: [
     {
-      title: "Nursery & Preschool",
-      desc: "Where our youngest members first encounter God's love.",
-    },
-    {
-      title: "Children's Ministry",
-      desc: "Building a foundation of faith through the Word and worship.",
-    },
-    {
-      title: "Youth Ministry",
+      title: "Youth Group",
       desc: "A community for teens growing into their identity in Christ.",
     },
     {
-      title: "Young Adults",
+      title: "Young Adult Group",
       desc: "A community of young adults growing together as the next generation of leaders.",
     },
     {
-      title: "Adult Ministry & Cell Groups",
-      desc: "Small groups building one another up through the Word and fellowship.",
+      title: "Fathers Group",
+      desc: "Fathers encouraging one another in faith, family, and leadership in the home.",
     },
     {
-      title: "Missions",
-      desc: "Carrying the Word of Life to the ends of the earth.",
+      title: "Mothers Group",
+      desc: "Mothers supporting one another in faith, family, and raising the next generation.",
     },
   ],
 

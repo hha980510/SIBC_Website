@@ -1,10 +1,10 @@
 "use client";
 
-import { Baby, GraduationCap, Users, Heart, Users2, Compass } from "lucide-react";
+import { Compass, Users2, Shield, Heart } from "lucide-react";
 import Reveal from "./Reveal";
 import { siteConfig } from "@/lib/site-config";
 
-const icons = [Baby, GraduationCap, Users, Users2, Heart, Compass];
+const icons = [Compass, Users2, Shield, Heart];
 
 export default function Ministries() {
   return (
@@ -23,7 +23,7 @@ export default function Ministries() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {siteConfig.ministries.map((m, i) => {
             const Icon = icons[i % icons.length];
             return (
