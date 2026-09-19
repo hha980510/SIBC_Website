@@ -23,29 +23,22 @@ export const siteConfig = {
     email: "info@jbch.sibc.org",
   },
 
-  // TODO: replace with your actual service times.
   services: [
     {
       name: "Sunday Worship",
-      time: "11:00 AM",
+      time: "10:50 AM",
       day: "Every Sunday",
       desc: "Our main Sunday service, where the whole congregation gathers to worship together.",
     },
     {
-      name: "Sunday School",
-      time: "9:30 AM",
-      day: "Every Sunday",
-      desc: "Bible teaching for the next generation, organized by age group.",
-    },
-    {
       name: "Wednesday Service",
-      time: "7:30 PM",
+      time: "6:50 PM",
       day: "Every Wednesday",
       desc: "A midweek time to be renewed in the Word.",
     },
     {
-      name: "Friday Prayer",
-      time: "8:00 PM",
+      name: "Timothy School",
+      time: "6:50 PM",
       day: "Every Friday",
       desc: "Gathering together for earnest, united prayer.",
     },
