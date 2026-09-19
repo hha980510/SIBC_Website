@@ -6,7 +6,7 @@
 
 export const siteConfig = {
   churchName: "Southern Illinois Church",
-  orgName: "Life Word Mission U.S. Conference",
+  orgName: "Life Word Mission U.S. Conference · Jesus Baptist Church",
   tagline: "United in the Word of Life",
   url: "https://jbch.sibc.org",
 
