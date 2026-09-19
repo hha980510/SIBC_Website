@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { siteConfig } from "@/lib/site-config";
+import { useIsCoarsePointer } from "@/hooks/useIsCoarsePointer";
 
 export default function WelcomeVerse() {
   const ref = useRef<HTMLElement>(null);
@@ -12,6 +13,11 @@ export default function WelcomeVerse() {
   });
   const glowX = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
+  // A large blur() layer that also tracks scroll is expensive to
+  // repaint on phones; keep it static there instead of parallaxing.
+  const isCoarse = useIsCoarsePointer();
+  const glowStyle = isCoarse ? undefined : { x: glowX };
+
   return (
     <section
       ref={ref}
@@ -19,8 +25,8 @@ export default function WelcomeVerse() {
       className="relative py-28 sm:py-36 bg-navy-950 overflow-hidden"
     >
       <motion.div
-        style={{ x: glowX }}
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-ocean-600/25 blur-[120px]"
+        style={glowStyle}
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-ocean-600/25 blur-[60px] sm:blur-[120px]"
       />
       <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:28px_28px]" />
 

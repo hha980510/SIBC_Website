@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { useIsCoarsePointer } from "@/hooks/useIsCoarsePointer";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -20,6 +21,17 @@ export default function Hero() {
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
+  // Scroll-linked parallax is the main source of jank on phones (every
+  // scroll frame recomputes and repaints it, on top of blurred floating
+  // blobs). Skip it on touch/small-screen devices and just show the
+  // hero in its resting position.
+  const isCoarse = useIsCoarsePointer();
+  const bgStyle = isCoarse ? undefined : { y: bgY };
+  const markStyle = isCoarse
+    ? undefined
+    : { y: markY, scale: markScale, rotate: markRotate };
+  const textStyle = isCoarse ? undefined : { y: textY, opacity: textOpacity };
+
   return (
     <section
       id="home"
@@ -28,12 +40,12 @@ export default function Hero() {
     >
       {/* organic floating light blobs */}
       <motion.div
-        style={{ y: bgY }}
+        style={bgStyle}
         className="pointer-events-none absolute inset-0"
       >
-        <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-ocean-100/40 blur-3xl animate-float-slow" />
-        <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full bg-white/20 blur-3xl animate-float" />
-        <div className="absolute bottom-0 left-1/4 w-[360px] h-[360px] rounded-full bg-gold-400/20 blur-3xl animate-float-slow" />
+        <div className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-ocean-100/40 blur-3xl sm:animate-float-slow" />
+        <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full bg-white/20 blur-3xl sm:animate-float" />
+        <div className="absolute bottom-0 left-1/4 w-[360px] h-[360px] rounded-full bg-gold-400/20 blur-3xl sm:animate-float-slow" />
       </motion.div>
 
       <div className="relative z-10 h-full max-w-7xl mx-auto px-6 sm:px-10 flex flex-col items-center justify-center text-center">
@@ -47,11 +59,11 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          style={{ y: markY, scale: markScale, rotate: markRotate }}
+          style={markStyle}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="relative w-32 h-32 sm:w-40 sm:h-40 mb-8 animate-float"
+          className="relative w-32 h-32 sm:w-40 sm:h-40 mb-8 sm:animate-float"
         >
           <div className="absolute inset-0 rounded-full bg-white/25 blur-2xl scale-90" />
           <Image
@@ -64,7 +76,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        <motion.div style={{ y: textY, opacity: textOpacity }}>
+        <motion.div style={textStyle}>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
