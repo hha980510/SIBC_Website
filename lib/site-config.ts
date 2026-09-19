@@ -24,7 +24,7 @@ export const siteConfig = {
 
   services: [
     {
-      name: "Sunday Worship",
+      name: "Sunday Sermon",
       time: "10:50 AM",
       day: "Every Sunday",
       desc: "Our main Sunday service, where the whole congregation gathers to worship together.",
