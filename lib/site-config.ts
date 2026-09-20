@@ -73,7 +73,7 @@ export const siteConfig = {
     title: "Bible Seminar",
     subtitle: "Bible Seminar",
     dateLabel: "September 28 – October 3",
-    timeLabel: "Dinner 5:30 PM · Message 6:45 PM",
+    timeLabel: "Dinner 5:30 PM · Sermon 6:45 PM",
     location: "Southern Illinois Church, Main Sanctuary",
     description:
       "You're invited to join us for a Bible Seminar — a time to learn and grow in the Word together. Fill out the form below and we'll follow up to confirm your spot.",
