@@ -72,6 +72,11 @@ export default function BibleSeminar() {
                     <p className="mt-1 text-white font-medium">
                       {siteConfig.seminar.dateLabel}
                     </p>
+                    {siteConfig.seminar.timeLabel && (
+                      <p className="mt-0.5 text-ocean-100/70 text-sm">
+                        {siteConfig.seminar.timeLabel}
+                      </p>
+                    )}
                   </div>
                 </li>
                 <li className="flex gap-4">
