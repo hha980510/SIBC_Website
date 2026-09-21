@@ -10,13 +10,13 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3">
-              <span className="relative w-11 h-11 rounded-xl overflow-hidden ring-1 ring-white/15">
+              <span className="relative w-11 h-11 rounded-xl overflow-hidden ring-1 ring-white/15 bg-gradient-to-br from-navy-800 to-navy-950">
                 <Image
                   src="/images/logo-mark.png"
                   alt={`${siteConfig.churchName} logo`}
                   fill
                   sizes="44px"
-                  className="object-cover scale-125"
+                  className="object-contain p-1.5"
                 />
               </span>
               <div className="leading-tight">

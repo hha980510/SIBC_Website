@@ -46,7 +46,7 @@ export default function Nav() {
           className="flex items-center gap-3 group"
         >
           <span
-            className={`relative w-10 h-10 rounded-xl overflow-hidden ring-1 transition-colors duration-500 ${
+            className={`relative w-10 h-10 rounded-xl overflow-hidden ring-1 bg-gradient-to-br from-navy-800 to-navy-950 transition-colors duration-500 ${
               scrolled ? "ring-navy-800/15" : "ring-white/40"
             }`}
           >
@@ -55,7 +55,7 @@ export default function Nav() {
               alt={`${siteConfig.churchName} logo`}
               fill
               sizes="40px"
-              className="object-cover scale-125 group-hover:scale-[1.35] transition-transform duration-500"
+              className="object-contain p-1.5 group-hover:scale-110 transition-transform duration-500"
               priority
             />
           </span>

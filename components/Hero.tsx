@@ -71,7 +71,7 @@ export default function Hero() {
             alt="Life Word Mission logo"
             fill
             sizes="160px"
-            className="object-contain rounded-3xl shadow-[0_20px_60px_-15px_rgba(8,21,43,0.6)]"
+            className="object-contain drop-shadow-[0_20px_40px_rgba(8,21,43,0.55)]"
             priority
           />
         </motion.div>
